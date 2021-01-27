@@ -1,0 +1,7 @@
+cd /home/workspace
+echo "Student commands can be added to /home/workspace/.student_bashrc"
+# code /home/workspace --user-data-dir /usr/code
+
+# Desktop launcher setup
+sudo ln -sf /home/workspace/desktop/slicer.desktop /root/Desktop/slicer.desktop
+sudo ln -sf /home/workspace/desktop/slicer.png /usr/share/icons/HighContrast/scalable/slicer.png

@@ -1,0 +1,30 @@
+data/TestVolumes
+data/TrainingSet
+Section 1 EDA/.ipynb_checkpoints
+Section 1 EDA/desktop
+Section 1 EDA/img
+Section 1 EDA/out/images
+Section 1 EDA/out/labels
+Section 1 EDA/@PaxHeader
+Section 1 EDA/launch_jupyter.sh
+Section 2 Train_Eval_Model/.ipynb_checkpoints
+Section 2 Train_Eval_Model/desktop
+Section 2 Train_Eval_Model/launch_jupyter.sh
+Section 2 Train_Eval_Model/Untitled.ipynb
+Section 2 Train_Eval_Model/images
+Section 2 Train_Eval_Model/labels
+Section 2 Train_Eval_Model/images.tar.gz
+Section 2 Train_Eval_Model/labels.tar.gz
+Section 2 Train_Eval_Model/out/2020-09-08_2231_Basic_unet/model.pth
+Section 2 Train_Eval_Model/out/2020-09-11_1827_Basic_unet
+Section 2 Train_Eval_Model/src/data_prep/HippocampusDatasetLoader.ipynb
+Section 2 Train_Eval_Model/src/data_prep/SlicesDataset.ipynb
+Section 2 Train_Eval_Model/src/run_ml_pipeline.ipynb
+Section 3 Simulate DIMSE/src/out
+Section 3 Simulate DIMSE/src/inference/model.pth
+Section 3 Simulate DIMSE/out/README.md
+Section 3 Simulate DIMSE/out/inference_dcm.py
+Section 3 Simulate DIMSE/out/report.dcm
+Section 3 Simulate DIMSE/@PaxHeader
+Section 3 Simulate DIMSE/src/test.py
+

@@ -1,0 +1,14 @@
+cd /home/workspace
+
+echo "Student commands can be added to /home/workspace/.student_bashrc"
+# code /home/workspace --user-data-dir /usr/code
+
+### dcmtk access the bin
+# example alias command=path
+# alias cda2dcm="./opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/bin/cda2dcm"
+alias storescp="/opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/bin/storescp"
+alias dcmdump="/opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/bin/dcmdump"
+alias storescu="/opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/bin/storescu"
+alias echoscu="/opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/bin/echoscu"
+
+export DCMDICTPATH="/opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/share/dcmtk/dicom.dic:/opt/aihcnd-applications/dcmtk-3.6.5-linux-x86_64-static/share/dcmtk/private.dic"
