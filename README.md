@@ -19,7 +19,7 @@ For this project, a deep learning segmentation model was created to identify hip
 
 The intention of this software is to be integrated into a Picture Archiving and Commonication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed in the clinical imaging archive.
 This software will eliminate the tedious hippocampus measurement task from physicians and quickly provide physicians with an accurate measurement to improve longitudinal care for Alzheimer’s patients.  The software will also provide a consistent method to trace the hippocampus structure, whereas there may be variability between clinicians in the tracement task. 
-The performance metrics requirements for this project are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80.
+The performance metrics requirements for this segmentation CNN are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80.  
 
 Example report for Test Volumes Study 1:  
  ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study1_Hippocampus_Axial_Slices.jpg)  
@@ -30,7 +30,7 @@ This project is broken into three sections and are located in separate folders:
 and evaluate model performance metrics - overall Dice Similarity Coefficent & Jaccard Index.  
 - Section 3 Integrating into a Clinical Network:  Simulate DICOM Message Service Element (DIMSE), where a computer containing a copy of the Sections 2 segmentation algorithm listens for PACS file transfer, and requests a copy of the transferred file to execute inference and provide hippocampus measurement.
 
-A full discussion of completed project results and model performance can be read in [Validation_Plan_Proposal](Validation_Plan_Proposal.pdf)  
+In this completed model run, the model achieved performance of **Overall Mean Dice Similarity Coefficent 0.906** and **Overall mean Jaccard Index 0.83**.  A full discussion of completed project results and model performance can be read in [Validation_Plan_Proposal](Validation_Plan_Proposal.pdf)  
 
 **References**  
 [1] Alzheimer’s Association. "2020 Alzheimer’s Disease Facts and Figures", Alzheimers & Dementia, 2020;16(3):391+. [LINK](https://www.alz.org/media/Documents/alzheimers-facts-and-figures_1.pdf)  
@@ -44,6 +44,8 @@ The original Medical Decathlon "Hippocampus" dataset images are T2-weighted MRI 
 
 Algorithms that crop rectangular regions of interest are quite common in medical imaging, but deep learning networks are not.
 
+**NOTE** Udacity's project dataset is not provided in this GitHub repo, as it is not a public dataset.  Please enroll in Udacity's AI for Healthcare Nanodegree to access a copy of the dataset.
+
 **References**  
 [1] Amber L. Simpson, Michela Antonelli, Spyridon Bakas, Michel Bilello, Keyvan Farahani, Bram van Ginneken, Annette Kopp-Schneider, Bennett A. Landman, Geert Litjens, Bjoern Menze, Olaf Ronneberger, Ronald M. Summers, Patrick Bilic, Patrick F. Christ, Richard K. G. Do, Marc Gollub, Jennifer Golia-Pernicka, Stephan H. Heckers, William R. Jarnagin, Maureen K. McHugo, Sandy Napel, Eugene Vorontsov, Lena Maier-Hein, M. Jorge Cardoso. 
 "A large annotated medical image dataset for the development and evaluation of segmentation algorithms," arXiv:1902.09063 (Feb 2019) [LINK](https://arxiv.org/abs/1902.09063)
@@ -52,17 +54,29 @@ Algorithms that crop rectangular regions of interest are quite common in medical
 ## Getting Started
 
 Start here ~3/1/21 Describe what package you use in each.
+
 1. Set up your Anaconda environment.  
 2. Clone `https://github.com/ElliotY-ML/Hippocampus_Segmentation_MRI.git` GitHub repo to your local machine.
-3. Section 1  Open `1_EDA.ipynb` with Jupyter Notebook for exploratory data analysis.
-4. Section 2  Open `2_Build_and_Train_Model.ipynb` with python IDE for image pre-processing in `util`,slice prepration ``, U-Net CNN archrecture model fine-tuning, PyTorch prep ``, and DSC.
-5. Section 3  Open `3_Inference.ipynb` with Jupyter Notebook for inference with a DICOM file.
-6. Complete Project Discussion can be found in `Validation_Plan_Proposal.pdf`
+3. Section 1:  Open a Jupyter Notebook.  Navigate to directory `Section 1 EDA` and open `Final Project EDA.ipynb` for exploratory data analysis.  See the Porject Instructions section of this README for further instructions.
+4. Section 2:  To train a Hippocampus Segementation CNN, follow the instructions provided in the Project Instructions section of this README.  
+	To explore the modules that `run_pipeline_ml.py` relies on, Open a Python IDE such as Spyder. Open the following Python modules in the Python IDE: 
+	- Two modules are contained in `Section 2 Train_Eval_Model/src/data_prep`: 
+		1. `HippocampusDatasetLoader.py` contains the function to extract image volume from NIFTI, normalize the image volume, and reshape the image volume into a common volume size. 
+	 	2. `SlicesDataset.py` contains the funtion to numerate all indiviual images slices belonging to an image volume.  It returns a dictionary containing a slice identifier, MRI scan slice, and corresponding segmentation mask slice. 
+	- The `Section 2 Train_Eval_Model/src/networks/RecursiveUNet.py` contains the U-Net architecture.
+	- Two modules are contained in `Section 2 Train_Eval_Model/src/utils`: 
+		1. `volume_stats.py` contains the functions to compute the Dice Similarity Coefficients for two 3-D volumes and the Jaccard Index. 
+	 	2. `utils.py` contains the functions to plot an array of images, log data to TensorBoard, save numpy as an image, and pad image volumes to a specified shape.
+	- The `Section 2 Train_Eval_Model/src/experiments/UNetExperiment.py` contains the functions to load training and validation data batches to PyTorch, train the U-Net model, log training to TensorBoard, save model parameters, run validation, and compute performance metrics.  
+	- The `Section 2 Train_Eval_Model/src/inference/UNetInferenceAgent.py` contains functions for single volume inference and returns a prediction mask.
+		
+5. Section 3:  This Section should be explored with a Python IDE.  Follow the instructions provided in the Project Instructions section of this README to setup a DIMSE simulation and run inference on MRI studies.
+6. Complete project results discussion can be found in `Validation_Plan_Proposal.pdf`
 
 ### Dependencies
 Using Anaconda consists of the following:
 
-1. Install [`miniconda`](http://conda.pydata.org/miniconda.html) on your computer, by selecting the latest Python version for your operating system. If you already have `conda` or `miniconda` installed, you should be able to skip this step and move on to step 2.
+1. Install [`anaconda`](https://www.anaconda.com/products/individual) on your computer, by selecting the latest Python version for your operating system. If you already have `conda` or `miniconda` installed, you should be able to skip this step and move on to step 2.
 2. Create and activate * a new `conda` [environment](http://conda.pydata.org/docs/using/envs.html).
 
 \* Each time you wish to work on any exercises, activate your `conda` environment!
@@ -71,24 +85,24 @@ Using Anaconda consists of the following:
 
 ## 1. Installation
 
-**Download** the latest version of `miniconda` that matches your system.
+**Download** the latest version of `anaconda` that matches your system.
 
 |        | Linux | Mac | Windows | 
 |--------|-------|-----|---------|
 | 64-bit | [64-bit (bash installer)][lin64] | [64-bit (bash installer)][mac64] | [64-bit (exe installer)][win64]
 | 32-bit | [32-bit (bash installer)][lin32] |  | [32-bit (exe installer)][win32]
 
-[win64]: https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.exe
-[win32]: https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86.exe
-[mac64]: https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-[lin64]: https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-[lin32]: https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86.sh
+[win64]: https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86_64.exe
+[win32]: https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86.exe
+[mac64]: https://repo.anaconda.com/archive/Anaconda3-2020.11-MacOSX-x86_64.sh
+[lin64]: https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
+[lin32]: https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86.sh
 
-**Install** [miniconda](http://conda.pydata.org/miniconda.html) on your machine. Detailed instructions:
+**Install** [anaconda](https://docs.anaconda.com/anaconda/) on your machine. Detailed instructions:
 
-- **Linux:** http://conda.pydata.org/docs/install/quick.html#linux-miniconda-install
-- **Mac:** http://conda.pydata.org/docs/install/quick.html#os-x-miniconda-install
-- **Windows:** http://conda.pydata.org/docs/install/quick.html#windows-miniconda-install
+- **Linux:** https://docs.anaconda.com/anaconda/install/linux/
+- **Mac:** https://docs.anaconda.com/anaconda/install/mac-os/
+- **Windows:** https://docs.anaconda.com/anaconda/install/windows/
 
 ## 2. Create and Activate the Environment
 
@@ -106,19 +120,19 @@ conda install git
 **CHANGE**
 ```
 git clone https://github.com/ElliotY-ML/Hippocampus_Segmentation_MRI.git
-cd Pneumonia_Detection_ChestX
+cd Hippocampus_Segmentation_MRI
 ```
 
-2. Create (and activate) a new environment, named `udacity-ehr-env` with Python 3.7. If prompted to proceed with the install `(Proceed [y]/n)` type y.
+2. Create (and activate) a new environment, named `udacity-ehr-env` with Python 3.8. If prompted to proceed with the install `(Proceed [y]/n)` type y.
 
 	- __Linux__ or __Mac__: 
 	```
-	conda create -n udacity-ehr-env python=3.7
+	conda create -n udacity-ehr-env python=3.8
 	source activate udacity-ehr-env
 	```
 	- __Windows__: 
 	```
-	conda create --name udacity-ehr-env python=3.7
+	conda create --name udacity-ehr-env python=3.8
 	activate udacity-ehr-env
 	```
 	
@@ -126,24 +140,33 @@ cd Pneumonia_Detection_ChestX
 
 
 
-6. Install a few required pip packages, which are specified in the requirements text file. Be sure to run the command from the project root directory since the requirements.txt file is there.
+6. Install a few required pip packages, which are specified in the `environment.yml` file. Be sure to run the command from the project root directory since the requirements.txt file is there.
  
 ```
 pip install -r pkgs.txt
 ```
 
+**In the 3rd section of the project we will be working with three software products for emulating the clinical network.**  
+
+You would need to install and configure:
+1. [Orthanc server](https://www.orthanc-server.com/download.php) for PACS emulation
+2. [OHIF zero-footprint web viewer for viewing images](https://docs.ohif.org/development/getting-started.html). Note that if you deploy OHIF from its github repository, at the moment of writing the repo includes a yarn script `orthanc:up` where it downloads and runs the Orthanc server from a Docker container. If that works for you, you won't need to install Orthanc separately.
+3. If you are using Orthanc (or other DICOMWeb server), you will need to configure OHIF to read data from your server. OHIF has instructions for this: https://docs.ohif.org/configuring/data-source.html
+4. In order to fully emulate the Udacity workspace, you will also need to configure Orthanc for auto-routing of studies to automatically direct them to your AI algorithm. For this you will need to take the script that you can find at `section3/src/deploy_scripts/route_dicoms.lua` and install it to Orthanc as explained on this page: https://book.orthanc-server.com/users/lua.html
+5. [DCMTK tools](https://dcmtk.org/) for testing and emulating a modality. Note that if you are running a Linux distribution, you might be able to install dcmtk directly from the package manager (e.g. `apt-get install dcmtk` in Ubuntu)
+
+
 
 ## Project Instructions
-Start here 3/2/21
 
-please read Udacity's original project instructions in the `Project_Overview.md` file.
+Udacity's original project instructions can be read in the [`Project_Instructions.md`](Project_Instructions.md) file.
 
 **Project Overview**
 
-   1. Exploratory Data Analysis
-   2. Building and Training Your Model
-   3. Clinical Workflow Integration
-   4. FDA Preparation
+   1. Exploratory Data Analysis and Curating a Dataset
+   2. Train U-Net Fully Convoluted Network for Brain Segmentation
+   3. Simulate Integration of Segmentation CNN into Clinical DIMSE
+   4. Validation Plan Proposal
 
 
 ## Part 1: Curating a Dataset for Machine Learning Training and Validation
@@ -185,7 +208,7 @@ Outputs:
 - Model performance metrics information, Dice Similarity Coefficient and Jaccard Index, stored in `results.json` file.
 
 Instructions:  
-1. Run script `run_ml_pipeline.py` in `/Section 2 Train_Eval_Model/src`.  It will call and execute methods from modules contained in the `/src/` tree to extract & pre-process NIFTI Brain MRI volumes, complete model training, and evaluate performance.
+1. Open a Terminal and Run script `/Section 2 Train_Eval_Model/src/run_ml_pipeline.py`.  It will call and execute methods from modules contained in the `/src/` tree to extract & pre-process NIFTI Brain MRI volumes, complete model training, and evaluate performance.
 2. `run_ml_pipeline.py` has hooks to log progress to Tensorboard.  To see the Tensorboard output, launch Tensorboard executable from the same directory where `run_ml_pipeline.py` is location by using the command:
 > tensorboard --logdir runs --bind_all
 3.  Tensorboard will write logs into the director called `runs`.  View the progress by opening a browser and navigate to port 6006 of the machine where you are running it.
@@ -226,7 +249,7 @@ Outputs:
 Instructions:
 
 1.  Copy Trained segmentation model `model.pth` from Section 2 into folder `/Section 3 Simulate DIMSE/src/inference`.
-2.  Set up Orthanc.  Open a terminal and enter the following:
+2.  Set up Orthanc by opening a terminal and enter the following:
 `bash launch_orthanc.sh` or `./launch_orthanc.sh`. Don't close this terminal.  
 Wait for it to complete, with the last line being something like
 `W0509 05:38:21.152402 main.cpp:719] Orthanc has started` and/or you can verify that Orthanc is working by running `echoscu 127.0.0.1 4242 -v` in a new terminal.
@@ -251,7 +274,7 @@ Example report for Test Volumes Study 3:
  ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study3_Hippocampus_Axial_Slices.jpg)  
 
 **References**  
-[1] Jodogne, S. The Orthanc Ecosystem for Medical Imaging. J Digit Imaging 31, 341–352 (2018). [Link](https://doi.org/10.1007/s10278-018-0082-y)  
+[1] Jodogne, S. The Orthanc Ecosystem for Medical Imaging. Journal of Digital Imaging 31, 341–352 (2018). [Link](https://doi.org/10.1007/s10278-018-0082-y)  
 [2] [Open Health Imaging Foundation](https://ohif.org/)
 
 
