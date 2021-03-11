@@ -1,4 +1,4 @@
-name: medai
+name: hippo-segmentation
 channels:
   - pytorch
   - anaconda-fusion

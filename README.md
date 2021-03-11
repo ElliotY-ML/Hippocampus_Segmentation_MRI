@@ -121,28 +121,21 @@ git clone https://github.com/ElliotY-ML/Hippocampus_Segmentation_MRI.git
 cd Hippocampus_Segmentation_MRI
 ```
 
-2. Create (and activate) a new environment, named `udacity-ehr-env` with Python 3.8. If prompted to proceed with the install `(Proceed [y]/n)` type y.
+2. Create and activate a new environment, named `hippo-segmentation` with Python 3.7+.  Be sure to run the command from the project root directory since the environment.yml file is there.  If prompted to proceed with the install `(Proceed [y]/n)` type y and press `ENTER`.
 
 	- __Linux__ or __Mac__: 
 	```
-	conda create -n udacity-ehr-env python=3.8
-	source activate udacity-ehr-env
+	conda env create -f environment.yml
+	source activate hippo-segmentation
 	```
 	- __Windows__: 
 	```
-	conda create --name udacity-ehr-env python=3.8
-	activate udacity-ehr-env
+	conda env create -f environment.yml
+	conda activate hippo-segmentation
 	```
 	
-	At this point your command line should look something like: `(udacity-ehr-env) <User>:USER_DIR <user>$`. The `(udacity-ehr-env)` indicates that your environment has been activated, and you can proceed with further package installations.
+	At this point your command line should look something like: `(hippo-segmentation) <User>:USER_DIR <user>$`. The `(hippo-segmentation)` indicates that your environment has been activated.
 
-
-
-6. Install a few required pip packages, which are specified in the `environment.yml` file. Be sure to run the command from the project root directory since the requirements.txt file is there.
- 
-```
-pip install -r pkgs.txt
-```
 
 **In the 3rd section of the project we will be working with three software products for emulating the clinical network.**  
 
