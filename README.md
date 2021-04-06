@@ -21,8 +21,8 @@ The intention of this software is to be integrated into a Picture Archiving and 
 This software will eliminate the tedious hippocampus measurement task from physicians' workflow and will quickly provide physicians with an accurate measurement.  The software will also provide a consistent method to trace the hippocampus structure, whereas there may be variability between clinicians in the tracement task.
 The performance metrics requirements for this segmentation CNN are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80 when comparing model predictions to ground truth segmentation masks.  
 
-Example report for Test Volumes Study 1:  
  ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study1_Hippocampus_Axial_Slices.jpg)  
+ **Figure 1.** Example report output for Test Volumes Study 1
 
 This project is broken into three sections and are located in separate folders:
 - Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Decathlon dataset metadata, analyze & visualize image volumes & corresponding labels, and identify & remove data that is not of a brain MRI.  
@@ -214,8 +214,8 @@ In a completed model run, the model achieved performance of **Overall Mean Dice 
 
 In Section 3, the segmentation CNN from Section 2 will be integrated into a simulated clinical network.  This AI product will automatically compute hippocampus volume for brain MRI scans, and provide this information to clinicians in a DICOM report.  
 
-DIMSE Simulation Setup:  
-![Clinical Network Setup](/data/readme.img/network_setup.png)
+![Clinical Network Setup](/data/readme.img/network_setup.png)  
+**Figure 2.** DIMSE Simulation Setup  
 
 List | Network Object	| Script to Simulate Network Object
 --- | --- | ---
@@ -258,11 +258,11 @@ You will then want to enter the Desktop with the bottom right hand corner.
    The output is a DICOM report, `report.dcm`, that will be stored in `Section 3 Simulate DIMSE/src/out` and a copy is automatically stored to the Orthanc. 
 8. The output `report.dcm` can be viewed with OHIF in a web browser.     
    
-Example report for Test Volumes Study 2:  
- ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study2_Hippocampus_Axial_Slices.jpg)  
- 
-Example report for Test Volumes Study 3:  
+![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study2_Hippocampus_Axial_Slices.jpg)  
+**Figure 3.** Example report for Test Volumes Study 2  
+
  ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study3_Hippocampus_Axial_Slices.jpg)  
+**Figure 4.** Example report for Test Volumes Study 3  
 
 **References**  
 [1] Jodogne, S. The Orthanc Ecosystem for Medical Imaging. Journal of Digital Imaging 31, 341–352 (2018). [Link](https://doi.org/10.1007/s10278-018-0082-y)  
