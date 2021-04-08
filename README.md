@@ -4,20 +4,20 @@ part of the AI for Healthcare Nanodegree program.  It has been reviewed by Udaci
 
 ## Introduction  
 
-Alzhiemer's Disease (AD) is a degenerative brain disease that affects an estimated 5.8 million Americans age 65 and older in 2020.  
+Alzheimer's Disease (AD) is a degenerative brain disease that affects an estimated 5.8 million Americans age 65 and older in 2020.
 It is thought that AD begins 20 years or more before symptoms arise, with progressive brain changes that are unnoticeable to the affected person.  As the disease progresses, nerve cells (neurons) in parts of the brain involved with thinking, learning, and memory functions are damaged and destroyed.  
 After years of brain changes, individuals experience symptoms such as memory loss, loss of language function, and other manifestations.  AD is the most common cause of dementia [1].
 
-The Alzheimer's Association (AA) "2020 Alzheimer's Disease Facts and Figures" estimates that the number of Americans with Alizheimers may triple by 2050 [1].
+The Alzheimer's Association (AA) "2020 Alzheimer's Disease Facts and Figures" estimates that the number of Americans with AD may triple by 2050 [1].
 With such a staggering future care need, projections show that there will be a shortage of front-line primary care physicians (PCP), neurologists, and other specialists who provide critical expertise in dementia diagnosis and care [2].
 
-Currently, an MRI exam is one of the most advanced methods to quantify Alzheimer's.  Studies have shown that measurements of hippocampal volume from MRI exams is useful to diagnose and track progression of several brain diseases, including AD.  AD patients have shown a reduced hippocampus volume.
+Currently, an MRI exam is one of the most advanced methods to quantify AD.  Studies have shown that measurements of hippocampal volume from MRI exams is useful to diagnose and track progression of several brain diseases, including AD.  AD patients have shown a reduced hippocampus volume.
 Quantifying disease progression over time can help direct therapy and disease management. However, the process to measure the hippocampus using MRI scans is very time consuming.  Each 3D MRI scan volume contains several dozen 2D images slices.  With each 2D image slice, the hippocampus must be correctly identified and traced.
 
 AI software can provide a practical solution to quantify hippocampal volume from MRI scans.  Deep learning algorithms for computer vision segmentation tasks introduce new avenues to automate the identification of objects and trace objects in an image.   
 For this project, a deep learning segmentation model was created to identify hippocampus structures in brain MRI scans on volume pixel (voxel) level.  The identified hippocampus voxels are translated to physical volume measurements in mm^3.
 
-The intention of this software is to be integrated into a Picture Archiving and Commonication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed to a clinical imaging archive server.
+The intention of this software is to be integrated into a Picture Archiving and Communication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed to a clinical imaging archive server.
 This software will eliminate the tedious hippocampus measurement task from physicians' workflow and will quickly provide physicians with an accurate measurement.  The software will also provide a consistent method to trace the hippocampus structure, whereas there may be variability between clinicians in the tracement task.
 The performance metrics requirements for this segmentation CNN are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80 when comparing model predictions to ground truth segmentation masks.  
 
@@ -27,10 +27,10 @@ The performance metrics requirements for this segmentation CNN are to achieve Di
 This project is broken into three sections and are located in separate folders:
 - Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Decathlon dataset metadata, analyze & visualize image volumes & corresponding labels, and identify & remove data that is not of a brain MRI.  
 - Section 2 Training a segmentation CNN model: Image volume extraction from NIFTI files, image volume pre-processing, split dataset using Scikit-Learn, build & train a UNet Fully Convoluted Neural Network (FCN) with PyTorch, 
-and evaluate model performance metrics - overall Dice Similarity Coefficent & Jaccard Index.  
-- Section 3 Integrating into a Clinical Network:  Simulate DICOM Message Service Element (DIMSE). A dedicated AI computer will be added to a clinical PACS network.  The AI computer will contain a copy of the Section 2 segmentation CNN.  When an MRI scanner completes a scan and sends a MRI study to the PACS,  the AI computer will receive a copy of the transferred file to execute inference and provide a DICOM report with hippocampus measurements.
+and evaluate model performance metrics - overall Dice Similarity Coefficient & Jaccard Index.  
+- Section 3 Integrating into a Clinical Network:  Simulate DICOM Message Service Element (DIMSE). A dedicated AI computer will be added to a clinical PACS network.  The AI computer will contain a copy of the Section 2 segmentation CNN.  When a MRI scanner completes a scan and sends a MRI study to the PACS, the AI computer will receive a copy of the transferred file to execute inference and provide a DICOM report with hippocampus measurements.
 
-In this completed model run, the model achieved performance of **Overall Mean Dice Similarity Coefficent 0.906** and **Overall mean Jaccard Index 0.830**.  A full discussion of completed project results and model performance can be read in [Validation_Plan_Proposal](Validation_Plan_Proposal.pdf)  
+In this completed model run, the model achieved performance of **Overall Mean Dice Similarity Coefficient 0.906** and **Overall mean Jaccard Index 0.830**.  A full discussion of completed project results and model performance can be read in [Validation_Plan_Proposal](Validation_Plan_Proposal.pdf)  
 
 **References**  
 [1] Alzheimer’s Association. "2020 Alzheimer’s Disease Facts and Figures", Alzheimers & Dementia, 2020;16(3):391+. [LINK](https://www.alz.org/media/Documents/alzheimers-facts-and-figures_1.pdf)  
@@ -56,11 +56,11 @@ Algorithms that crop rectangular regions of interest are quite common in medical
 1. Set up your Anaconda environment.  
 2. Clone `https://github.com/ElliotY-ML/Hippocampus_Segmentation_MRI.git` GitHub repo to your local machine.
 3. Section 1:  Open a Jupyter Notebook.  Navigate to directory `Section 1 EDA` and open `Final Project EDA.ipynb` for exploratory data analysis.  See the Project Instructions section of this README for further instructions.
-4. Section 2:  To train a Hippocampus Segementation CNN, follow the instructions provided in the Project Instructions section of this README.  
+4. Section 2:  To train a Hippocampus Segmentation CNN, follow the instructions provided in the Project Instructions section of this README.  
 	To explore the modules that `run_pipeline_ml.py` relies on, Open a Python IDE such as Spyder. Open the following Python modules in the Python IDE: 
 	- Two modules are contained in `Section 2 Train_Eval_Model/src/data_prep`: 
 		1. `HippocampusDatasetLoader.py` contains the function to extract image volume from NIFTI, normalize the image volume, and reshape the image volume into a common volume size. 
-	 	2. `SlicesDataset.py` contains the funtion to numerate all indiviual images slices belonging to an image volume.  It returns a dictionary containing a slice identifier, MRI scan slice, and corresponding segmentation mask slice. 
+	 	2. `SlicesDataset.py` contains the function to numerate all individual images slices belonging to an image volume.  It returns a dictionary containing a slice identifier, MRI scan slice, and corresponding segmentation mask slice. 
 	- The `Section 2 Train_Eval_Model/src/networks/RecursiveUNet.py` contains the U-Net architecture.
 	- Two modules are contained in `Section 2 Train_Eval_Model/src/utils`: 
 		1. `volume_stats.py` contains the functions to compute the Dice Similarity Coefficients for two 3-D volumes and the Jaccard Index. 
@@ -107,7 +107,7 @@ Using Anaconda consists of the following:
 For Windows users, these following commands need to be executed from the **Anaconda prompt** as opposed to a Windows terminal window. For Mac, a normal terminal window will work. 
 
 #### Git and version control
-These instructions also assume you have `git` installed for working with Github from a terminal window, but if you do not, you can download that first with the command:
+These instructions also assume you have `git` installed for working with GitHub from a terminal window, but if you do not, you can download that first with the command:
 ```
 conda install git
 ```
@@ -141,7 +141,7 @@ cd Hippocampus_Segmentation_MRI
 
 You would need to install and configure:
 1. [Orthanc server](https://www.orthanc-server.com/download.php) for PACS emulation
-2. [OHIF zero-footprint web viewer for viewing images](https://docs.ohif.org/development/getting-started.html). Note that if you deploy OHIF from its github repository, at the moment of writing the repo includes a yarn script `orthanc:up` where it downloads and runs the Orthanc server from a Docker container. If that works for you, you won't need to install Orthanc separately.
+2. [OHIF zero-footprint web viewer for viewing images](https://docs.ohif.org/development/getting-started.html). Note that if you deploy OHIF from its GitHub repository, at the moment of writing the repo includes a yarn script `orthanc:up` where it downloads and runs the Orthanc server from a Docker container. If that works for you, you won't need to install Orthanc separately.
 3. If you are using Orthanc (or other DICOMWeb server), you will need to configure OHIF to read data from your server. OHIF has instructions for this: https://docs.ohif.org/configuring/data-source.html
 4. In order to fully emulate the Udacity workspace, you will also need to configure Orthanc for auto-routing of studies to automatically direct them to your AI algorithm. For this you will need to take the script that you can find at `section3/src/deploy_scripts/route_dicoms.lua` and install it to Orthanc as explained on this page: https://book.orthanc-server.com/users/lua.html
 5. [DCMTK tools](https://dcmtk.org/) for testing and emulating a modality. Note that if you are running a Linux distribution, you might be able to install dcmtk directly from the package manager (e.g. `apt-get install dcmtk` in Ubuntu)
@@ -163,7 +163,7 @@ Udacity's original project instructions can be read in the [`Project_Instruction
 ## Part 1: Curating a Dataset for Machine Learning Training and Validation
 
 The human brain has two hippocampi, one in the left hemisphere and one in the right hemisphere of the brain.  Udacity provided this project's dataset that consists of cropped regions around the right hippocampus.
-The dataset contains MRI scan volumes that may be for brain studies and other types of studies.  This Section of the project reviews the given dataset to clean the dataset, and retreive only Brain MRI scan volumes.
+The dataset contains MRI scan volumes that may be for brain studies and other types of studies.  This Section of the project reviews the given dataset to clean the dataset, and retrieve only Brain MRI scan volumes.
 
 Inputs: 
 - `/data/TrainingSet/images` contains 262 NIFTI files for MRI Scan Volumes
@@ -204,7 +204,7 @@ Instructions:
 > tensorboard --logdir runs --bind_all
 3.  Tensorboard will write logs into the director called `runs`.  View the progress by opening a browser and navigate to port 6006 of the machine where you are running it.
 
-In a completed model run, the model achieved performance of **Overall Mean Dice Similarity Coefficent 0.906** and **Overall mean Jaccard Index 0.830**.  This meets requirements for Dice Similarity Coefficient >0.90 and Jaccard Index >0.80.
+In a completed model run, the model achieved performance of **Overall Mean Dice Similarity Coefficient 0.906** and **Overall mean Jaccard Index 0.830**.  This meets requirements for Dice Similarity Coefficient >0.90 and Jaccard Index >0.80.
 
 **References**  
 [1]  Olaf Ronneberger, Philipp Fischer, Thomas Brox, "U-Net: Convolutional Networks for Biomedical Image Segmentation," Medical Image Computing and Computer-Assisted Intervention (MICCAI), Springer, LNCS, Vol.9351: 234--241, 2015, available at arXiv:1505.04597 [cs.CV] 
@@ -224,10 +224,10 @@ List | Network Object	| Script to Simulate Network Object
 3 | Viewer System 											| OHIF Viewer [2].  It connects to the Orthanc server using DicomWeb and is serving a web application on port 3000. 
 4 | AI Server containing Segmentation software				| (1) `section3/src/deploy_scripts/start_listener.sh`.  It will copy everything it receives into a folder specified in the script.<br>(2) `Section 3 Simulate DIMSE/src/inference.py` is the Hippocampus Segmentation CNN software.
 
-1.  The PACS server is central to clinical settings.  It receives & archives all medical images and allows connected computers to request & send image files.  The Orthanc software, by Sébastien Jodogne, is a standalone DICOM server which allows the similation of a PACS server [1].
+1.  The PACS server is central to clinical settings.  It receives & archives all medical images and allows connected computers to request & send image files.  The Orthanc software, by Sébastien Jodogne, is a standalone DICOM server which allows the simulation of a PACS server [1].
  For this project, the Orthanc is listening to DICOM DIMSE requests on port 4242 and has a DicomWeb interface that is open at port 8042.  It is also running a model that sends everything it receives to an AI server.
 2.  The MRI Scanner will send entire studies to the Picture Archiving and Communication System (PACS) Orthanc server after completing a scan.  The script will simulate the archive transfer.
-3.  The Viewer system represents workstations that clinicians use to retreive and view studies from PACS.  The OHIF is viewer is software for viewing medical studies.  It is connecting to the Orthanc server using DicomWeb and is serving a web application on port 3000.
+3.  The Viewer system represents workstations that clinicians use to retrieve and view studies from PACS.  The OHIF is viewer is software for viewing medical studies.  It is connecting to the Orthanc server using DicomWeb and is serving a web application on port 3000.
 4.  An AI server is responsible for listening to PACS ports for incoming MRI studies.  When it detects that an MRI study is sent, the AI server will request a copy from the PACS server.  Once the MRI study is received on the AI server, the brain MRI scan will be processed by segmentation software and the hippocampus volume will be calculated from the determined hippocampus mask.  
 
 Inputs:  
