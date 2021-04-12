@@ -39,10 +39,8 @@ In this completed model run, the model achieved performance of **Overall Mean Di
 
 ## Dataset  
 
-This Udacity project dataset was adapted from the Medical Decathlon competition "Hippocampus" dataset.  It is stored as a collection of NIFTI files, with one file per image volume and one file per corresponding segmentation mask volume
-The original Medical Decathlon "Hippocampus" dataset images are T2-weighted MRI scans of the full brain.  In Udacity's adaptation, the volumes are cropped to only the region around the right hippocampus.  This reduces the dataset size and allows for shorter model training times.
-
-Algorithms that crop rectangular regions of interest are quite common in medical imaging, but deep learning networks are not.
+The project dataset was provided by Udacity. It was adapted from the Medical Decathlon competition "Hippocampus" dataset. The original Medical Decathlon "Hippocampus" dataset consisted of cropped T2 MRI scans of the full brain.  The volumes were cropped to only the region around the right hippocampus.  This reduces the dataset size and allows for shorter model training times.
+The project dataset was stored as a collection of NIFTI files, with one file per image volume and one file per corresponding segmentation mask volume
 
 **NOTE** Udacity's project dataset is not provided in this GitHub repo, as it is not a public dataset.  Please enroll in Udacity's AI for Healthcare Nanodegree to access a copy of the dataset.
 
