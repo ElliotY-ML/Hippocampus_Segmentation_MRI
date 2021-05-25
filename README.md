@@ -21,7 +21,7 @@ The intention of this software is to be integrated into a Picture Archiving and 
 This software will eliminate the tedious hippocampus measurement task from physicians' workflow and will quickly provide physicians with an accurate measurement.  The software will also provide a consistent method to trace the hippocampus structure, whereas there may be variability between clinicians in the tracement task.
 The performance metrics requirements for this segmentation CNN are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80 when comparing model predictions to ground truth segmentation masks.  
 
- ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study1_Hippocampus_Axial_Slices.jpg)  
+ ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study1_DCM%20Report%20Screenshot.jpg)  
  **Figure 1.** Example report output for Test Volumes Study 1
 
 This project is broken into three sections and are located in separate folders:
@@ -232,7 +232,7 @@ Inputs:
 - A file transfer of a Brain MRI scan.
 
 Outputs:
-- A DICOM Report displaying Total Hippocampal Volume, Anterior Hippocampal Volume, Posterior Hippocampal Volume, and Axial views (head to top view) at three depths.
+- A DICOM Report displaying Total Hippocampal Volume, Anterior Hippocampal Volume, Posterior Hippocampal Volume, and Axial views (head to toe direction) at three depths.
 
 
 Instructions:
@@ -252,15 +252,15 @@ You will then want to enter the Desktop with the bottom right hand corner.
 4. Open a terminal and cd to `Section 3 Simulate DIMSE/src`.  Run `start_listener.sh`.  Keep this terminal open.
 5. Edit `/Section 3 Simulate DIMSE/src/deploy_scripts/send_volume.sh` to specify target MRI study, such as `storescu 127.0.0.1 4242 -v -aec HIPPOAI +r +sd /data/TestVolumes/Study1`
 6. Open another terminal for simulating MRI transfer from MRI scanner to PACS. cd to `Section 3 Simulating DIMSE/src` and run `send_volume.sh`.  A copy of the specified MRI study in step 5 will be added to `Section 3 Simulate DIMSE/src/data/TestVolumes/`
-7. Open another terminal to execute Hippocampus Segmentation program.  cd to `Section 3 Simulate DIMSE/src`.  Run `inference.py /data/TestVolumes`, where `data/TestVolumes` contain brain MRI studies that need hippocampus measurements.  
-   The output is a DICOM report, `report.dcm`, that will be stored in `Section 3 Simulate DIMSE/src/out` and a copy is automatically stored to the Orthanc. 
-8. The output `report.dcm` can be viewed with OHIF in a web browser.     
+7. Open another terminal to execute Hippocampus Segmentation program.  cd to `Section 3 Simulate DIMSE/src`.  Run `inference.py ../../data/TestVolumes/StudyName`, where the `../../data/TestVolumes/StudyName` folder contains a folder with DICOM files belonging to one brain MRI study.  
+8. The output is a DICOM report, `datetime_report.dcm`, and three cross-sectional `.png` images of the brain MRI with highlighted hippocampus structures stored in `Section 3 Simulate DIMSE/out` and the report is automatically stored to the Orthanc. 
+9. The output `Section 3 Simulate DIMSE/out/datetime_report.dcm` can be viewed with OHIF in a web browser.    
    
-![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study2_Hippocampus_Axial_Slices.jpg)  
-**Figure 3.** Example report for Test Volumes Study 2  
+![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study2_DCM%20Report%20Screenshot.jpg)  
+**Figure 3.** Example report for Test Volumes Study2  
 
- ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study3_Hippocampus_Axial_Slices.jpg)  
-**Figure 4.** Example report for Test Volumes Study 3  
+ ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study3_DCM%20Report%20Screenshot.jpg)  
+**Figure 4.** Example report for Test Volumes Study3  
 
 **References**  
 [1] Jodogne, S. The Orthanc Ecosystem for Medical Imaging. Journal of Digital Imaging 31, 341–352 (2018). [Link](https://doi.org/10.1007/s10278-018-0082-y)  

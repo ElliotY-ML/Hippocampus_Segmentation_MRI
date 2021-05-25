@@ -134,6 +134,9 @@ def create_report(inference, header, orig_vol, pred_vol):
     orig_norm = (orig_vol/np.max(orig_vol))*0xff
     overlay_norm = ((pred_norm+orig_norm)/np.max(pred_norm+orig_norm))*0xff
 
+    dt = datetime.date.today().strftime("%Y%m%d")
+    tm = datetime.datetime.now().strftime("%H%M%S")
+    
     for n in range(len(slice_nums)):
         nd_img = np.flip(overlay_norm[:,:,slice_nums[n]]).T.astype(np.uint8)
 
@@ -142,6 +145,8 @@ def create_report(inference, header, orig_vol, pred_vol):
         pil_i = Image.fromarray(nd_img, mode="L").convert("RGBA").resize((300, 400))
         # Paste the PIL image into our main report image object (pimg)
         pimg.paste(pil_i, box=(10+325*n, 400))
+        # Save PIL image to out folder
+        pil_i.save(os.path.join("..", "out", header.PatientID+"_"+dt+"_"+tm+'_slice'+str(slice_nums[n])+'.png'), format= 'png')
 
     return pimg
 
@@ -242,6 +247,8 @@ def get_series_for_inference(path):
     # of files
     # We are reading all files into a list of PyDicom objects so that we can filter them later
     dicoms = [pydicom.dcmread(os.path.join(path, f)) for f in os.listdir(path)]
+    # print('dicoms')
+    # print(dicoms)
 
     # TASK: create a series_for_inference variable that will contain a list of only 
     # those PyDicom objects that represent files that belong to the series that you 
@@ -258,7 +265,9 @@ def get_series_for_inference(path):
     for d in dicoms:
         if (d[(0x0008,0x103e)].repval) == "'HippoCrop'":
             series_for_inference.append(d)
-
+    # print('series for inference is ')
+    # print(series_for_inference)
+    
     # Check if there are more than one series (using set comprehension).
     if len({f.SeriesInstanceUID for f in series_for_inference}) != 1:
         print("Error: can not figure out what series to run inference on")
@@ -268,11 +277,11 @@ def get_series_for_inference(path):
 
 def os_command(command):
     # Comment this if running under Windows
-    sp = subprocess.Popen(["/bin/bash", "-i", "-c", command])
-    sp.communicate()
+    # sp = subprocess.Popen(["/bin/bash", "-i", "-c", command])
+    # sp.communicate()
 
     # Uncomment this if running under Windows
-    # os.system(command)
+    os.system(command)
 
 if __name__ == "__main__":
     # This code expects a single command line argument with link to the directory containing
@@ -288,6 +297,7 @@ if __name__ == "__main__":
 
     # Get the latest directory
     study_dir = sorted(subdirs, key=lambda dir: os.stat(dir).st_mtime, reverse=True)[0]
+    # print('study_dir is ' + study_dir)
 
     print(f"Looking for series to run inference on in directory {study_dir}...")
 
@@ -311,8 +321,12 @@ if __name__ == "__main__":
     pred_volumes = get_predicted_volumes(pred_label)
 
     # Create and save the report
+    dt = datetime.date.today().strftime("%Y%m%d")
+    tm = datetime.datetime.now().strftime("%H%M%S")
+    
     print("Creating and pushing report...")
-    report_save_path = r"out/report.dcm"
+    report_save_path = os.path.join('..', 'out', dt+tm+'_report.dcm')
+    
     # TASK: create_report is not complete. Go and complete it. 
     # STAND OUT SUGGESTION: save_report_as_dcm has some suggestions if you want to expand your
     # knowledge of DICOM format
@@ -322,15 +336,17 @@ if __name__ == "__main__":
     # Send report to our storage archive
     # TASK: Write a command line string that will issue a DICOM C-STORE request to send our report
     # to our Orthanc server (that runs on port 4242 of the local machine), using storescu tool
-    os_command(f'storescu 127.0.0.1 4242 -v -aec HIPPOAI {"src/"+report_save_path}')
+    # Comment out when Orthanc server is not active.
+    # os_command(f'storescu 127.0.0.1 4242 -v -aec HIPPOAI {"src/"+report_save_path}')
 
     # This line will remove the study dir if run as root user
     # Sleep to let our StoreSCP server process the report (remember - in our setup
     # the main archive is routing everyting that is sent to it, including our freshly generated
     # report) - we want to give it time to save before cleaning it up
-    time.sleep(2)
-    shutil.rmtree(study_dir, onerror=lambda f, p, e: print(f"Error deleting: {e[1]}"))
+    # Comment out to keep files
+    # time.sleep(2)
+    # shutil.rmtree(study_dir, onerror=lambda f, p, e: print(f"Error deleting: {e[1]}"))
 
-    print(f"Inference successful on {header['SOPInstanceUID'].value}, out: {pred_label.shape}",
-          f"volume ant: {pred_volumes['anterior']}, ",
-          f"volume post: {pred_volumes['posterior']}, total volume: {pred_volumes['total']}")
+    print(f"Inference successful on {header['SOPInstanceUID'].value}, MRI Dimensions: {pred_label.shape}",
+          f"volume anterior: {pred_volumes['anterior']}, ",
+          f"volume posterior: {pred_volumes['posterior']}, total volume: {pred_volumes['total']}")
