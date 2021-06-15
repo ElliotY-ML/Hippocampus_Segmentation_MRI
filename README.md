@@ -25,7 +25,7 @@ The performance metrics requirements for this segmentation CNN are to achieve Di
  **Figure 1.** Example report output for Test Volumes Study 1
 
 This project is broken into three sections and are located in separate folders:
-- Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Decathlon dataset metadata, analyze & visualize image volumes & corresponding labels, and identify & remove data that is not of a brain MRI.  
+- Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Segmentation Decathlon dataset metadata, analyze & visualize image volumes & corresponding labels, and identify & remove data that is not of a brain MRI.  
 - Section 2 Training a segmentation CNN model: Image volume extraction from NIFTI files, image volume pre-processing, split dataset using Scikit-Learn, build & train a UNet Fully Convoluted Neural Network (FCN) with PyTorch, 
 and evaluate model performance metrics - overall Dice Similarity Coefficient & Jaccard Index.  
 - Section 3 Integrating into a Clinical Network:  Simulate DICOM Message Service Element (DIMSE). A dedicated AI computer will be added to a clinical PACS network.  The AI computer will contain a copy of the Section 2 segmentation CNN.  When a MRI scanner completes a scan and sends a MRI study to the PACS, the AI computer will receive a copy of the transferred file to execute inference and provide a DICOM report with hippocampus measurements.
@@ -39,7 +39,7 @@ In this completed model run, the model achieved performance of **Overall Mean Di
 
 ## Dataset  
 
-The project dataset was provided by Udacity. It was adapted from the Medical Decathlon competition "Hippocampus" dataset. The original Medical Decathlon "Hippocampus" dataset consisted of cropped T2 MRI scans of the full brain.  The volumes were cropped to only the region around the right hippocampus.  This reduces the dataset size and allows for shorter model training times.
+The project dataset was provided by Udacity. It was adapted from the Medical Segmentation Decathlon "Hippocampus" dataset. The original "Hippocampus" dataset consisted of cropped T2 MRI scans of the full brain.  The volumes were cropped to only the region around the right hippocampus.  This reduces the dataset size and allows for shorter model training times.
 The project dataset was stored as a collection of NIFTI files, with one file per image volume and one file per corresponding segmentation mask volume
 
 **NOTE** Udacity's project dataset is not provided in this GitHub repo, as it is not a public dataset.  Please enroll in Udacity's AI for Healthcare Nanodegree to access a copy of the dataset.
