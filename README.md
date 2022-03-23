@@ -1,5 +1,5 @@
 # Quantifying Alzheimer's Disease Progression Through Automated Measurement of Hippocampal Volume
-This repository contains a completed cap-stone project for Udacity's "Applying AI to 3D Medical Imaging Data" course, 
+This repository contains a completed cap-stone project for the Udacity "Applying AI to 3D Medical Imaging Data" course, 
 part of the AI for Healthcare Nanodegree program.  It has been reviewed by Udacity instructors and met project specifications.
 
 ## Introduction  
@@ -42,7 +42,7 @@ In this completed model run, the model achieved performance of **Overall Mean Di
 The project dataset was provided by Udacity. It was adapted from the Medical Segmentation Decathlon "Hippocampus" dataset. The original "Hippocampus" dataset consisted of cropped T2 MRI scans of the full brain.  The volumes were cropped to only the region around the right hippocampus.  This reduces the dataset size and allows for shorter model training times.
 The project dataset was stored as a collection of NIFTI files, with one file per image volume and one file per corresponding segmentation mask volume
 
-**NOTE** Udacity's project dataset is not provided in this GitHub repo, as it is not a public dataset.  Please enroll in Udacity's AI for Healthcare Nanodegree to access a copy of the dataset.
+**NOTE** Udacity's project dataset is not provided in this GitHub repo, as it is not a public dataset.  Please enroll in the Udacity AI for Healthcare Nanodegree to access a copy of the dataset.
 
 **References**  
 [1] Amber L. Simpson, Michela Antonelli, Spyridon Bakas, Michel Bilello, Keyvan Farahani, Bram van Ginneken, Annette Kopp-Schneider, Bennett A. Landman, Geert Litjens, Bjoern Menze, Olaf Ronneberger, Ronald M. Summers, Patrick Bilic, Patrick F. Christ, Richard K. G. Do, Marc Gollub, Jennifer Golia-Pernicka, Stephan H. Heckers, William R. Jarnagin, Maureen K. McHugo, Sandy Napel, Eugene Vorontsov, Lena Maier-Hein, M. Jorge Cardoso. 
@@ -148,7 +148,7 @@ You would need to install and configure:
 
 ## Project Instructions
 
-Udacity's original project instructions can be read in the [`Project_Instructions.md`](Project_Instructions.md) file.
+The original Udacity project instructions can be read in the [`Udacity_Project_Instructions.md`](Udacity_Project_Instructions.md) file.
 
 **Project Overview**
 
