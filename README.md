@@ -2,7 +2,19 @@
 This repository contains a completed cap-stone project for the Udacity "Applying AI to 3D Medical Imaging Data" course, 
 part of the AI for Healthcare Nanodegree program.  It has been reviewed by Udacity instructors and met project specifications.
 
-## Introduction  
+# Table of Contents
+- [Introduction](#introduction)
+	- [Dataset](#dataset)
+- [Getting Started](#getting-started)
+	- [Installation](#1-installation)
+	- [Create and Activate the Environment](#2-create-and-activate-the-environment)
+- [Project Instructions](#project-instructions)
+	- [Part 1: Curating a Dataset for Machine Learning Training and Validation](#part-1-curating-a-dataset-for-machine-learning-training-and-validation)
+	- [Part 2: Train U-Net Fully Convolutional Network for Brain Segmentation](#part-2-train-u-net-fully-convolutional-network-for-brain-segmentation)
+	- [Part 3: Simulate Integration of Segmentation CNN into DIMSE](#part-3-simulate-integration-of-segmentation-cnn-into-dimse)
+- [License](#license) 
+
+# Introduction  
 
 Alzheimer's Disease (AD) is a degenerative brain disease that affects an estimated 5.8 million Americans age 65 and older in 2020.
 It is thought that AD begins 20 years or more before symptoms arise, with progressive brain changes that are unnoticeable to the affected person.  As the disease progresses, nerve cells (neurons) in parts of the brain involved with thinking, learning, and memory functions are damaged and destroyed.  
@@ -26,7 +38,7 @@ The performance metrics requirements for this segmentation CNN are to achieve Di
 
 This project is broken into three sections and are located in separate folders:
 - Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Segmentation Decathlon dataset metadata, analyze & visualize image volumes & corresponding labels, and identify & remove data that is not of a brain MRI.  
-- Section 2 Training a segmentation CNN model: Image volume extraction from NIFTI files, image volume pre-processing, split dataset using Scikit-Learn, build & train a UNet Fully Convoluted Neural Network (FCN) with PyTorch, 
+- Section 2 Training a segmentation CNN model: Image volume extraction from NIFTI files, image volume pre-processing, split dataset using Scikit-Learn, build & train a UNet Fully Convolutional Neural Network (FCN) with PyTorch, 
 and evaluate model performance metrics - overall Dice Similarity Coefficient & Jaccard Index.  
 - Section 3 Integrating into a Clinical Network:  Simulate DICOM Message Service Element (DIMSE). A dedicated AI computer will be added to a clinical PACS network.  The AI computer will contain a copy of the Section 2 segmentation CNN.  When a MRI scanner completes a scan and sends a MRI study to the PACS, the AI computer will receive a copy of the transferred file to execute inference and provide a DICOM report with hippocampus measurements.
 
@@ -49,7 +61,7 @@ The project dataset was stored as a collection of NIFTI files, with one file per
 "A large annotated medical image dataset for the development and evaluation of segmentation algorithms," arXiv:1902.09063 (Feb 2019) [LINK](https://arxiv.org/abs/1902.09063)
 
 
-## Getting Started
+# Getting Started
 
 1. Set up your Anaconda environment.  
 2. Clone `https://github.com/ElliotY-ML/Hippocampus_Segmentation_MRI.git` GitHub repo to your local machine.
@@ -69,17 +81,13 @@ The project dataset was stored as a collection of NIFTI files, with one file per
 5. Section 3:  Modules in this section should be explored with a Python IDE.  Follow the instructions provided in the Project Instructions section of this README to setup a DIMSE simulation and run inference on MRI studies.
 6. Complete project results discussion can be found in `Validation_Plan_Proposal.pdf`
 
-### Dependencies
+## Dependencies
 Using Anaconda consists of the following:
 
 1. Install [`anaconda`](https://www.anaconda.com/products/individual) on your computer, by selecting the latest Python version for your operating system. If you already have `conda` or `miniconda` installed, you should be able to skip this step and move on to step 2.
-2. Create and activate * a new `conda` [environment](http://conda.pydata.org/docs/using/envs.html).
+2. Create and activate a new `conda` [environment](http://conda.pydata.org/docs/using/envs.html).
 
-\* Each time you wish to work on any exercises, activate your `conda` environment!
-
----
-
-## 1. Installation
+### 1. Installation
 
 **Download** the latest version of `anaconda` that matches your system.
 
@@ -100,11 +108,11 @@ Using Anaconda consists of the following:
 - **Mac:** https://docs.anaconda.com/anaconda/install/mac-os/
 - **Windows:** https://docs.anaconda.com/anaconda/install/windows/
 
-## 2. Create and Activate the Environment
+### 2. Create and Activate the Environment
 
 For Windows users, these following commands need to be executed from the **Anaconda prompt** as opposed to a Windows terminal window. For Mac, a normal terminal window will work. 
 
-#### Git and version control
+### Git and version control
 These instructions also assume you have `git` installed for working with GitHub from a terminal window, but if you do not, you can download that first with the command:
 ```
 conda install git
@@ -146,14 +154,14 @@ You would need to install and configure:
 
 
 
-## Project Instructions
+# Project Instructions
 
 The original Udacity project instructions can be read in the [`Udacity_Project_Instructions.md`](Udacity_Project_Instructions.md) file.
 
 **Project Overview**
 
    1. Exploratory Data Analysis and Curating a Dataset
-   2. Train U-Net Fully Convoluted Network for Brain Segmentation
+   2. Train U-Net Fully Convolutional Network for Brain Segmentation
    3. Simulate Integration of Segmentation CNN into Clinical DIMSE
    4. Validation Plan Proposal
 
@@ -161,7 +169,7 @@ The original Udacity project instructions can be read in the [`Udacity_Project_I
 ## Part 1: Curating a Dataset for Machine Learning Training and Validation
 
 The human brain has two hippocampi, one in the left hemisphere and one in the right hemisphere of the brain.  Udacity provided this project's dataset that consists of cropped regions around the right hippocampus.
-The dataset contains MRI scan volumes that may be for brain studies and other types of studies.  This Section of the project reviews the given dataset to clean the dataset, and retrieve only Brain MRI scan volumes.
+The dataset may also contain MRI scan volumes of other anatomies.  This Section of the project reviews the given dataset to clean the dataset, and retrieve only Brain MRI scan volumes.
 
 Inputs: 
 - `/data/TrainingSet/images` contains 262 NIFTI files for MRI Scan Volumes
@@ -182,7 +190,7 @@ Instructions:
 8. After identifying non-Brain MRI files, use `shutil` to copy the NIFTI image and label volumes into the `/Section 1 EDA/out` folder.
 
 
-## Part 2: Train U-Net Fully Convoluted Network for Brain Segmentation
+## Part 2: Train U-Net Fully Convolutional Network for Brain Segmentation
 
 In Section 2, PyTorch is used for training a model with the U-Net convolutional neural network architecture from the University of Freiburg [1] for segmentation of Brain MRIs and identify the right hippocampus.  
 Cleaned data from Section 1 is the input into Section 2.   The directory `/Section 2 Train_Eval_Model/src` contains the source code that forms the machine learning pipeline.  
@@ -268,6 +276,6 @@ You will then want to enter the Desktop with the bottom right hand corner.
 
 
 
-## License
+# License
 
 This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md)
