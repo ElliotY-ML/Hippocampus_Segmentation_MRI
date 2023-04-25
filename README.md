@@ -4,6 +4,10 @@ part of the AI for Healthcare Nanodegree program.  It has been reviewed by Udaci
 
 # Table of Contents
 - [Introduction](#introduction)
+	- [Background of Alzeimer's Disease](#background-of-alzheimers-disease)
+	- [Quanitifying Disease Progression with MRI Exams](#quantifying-disease-progression-with-mri-exams)
+	- [Automate Identification of Brain Structures Using AI](#automate-identification-of-brain-structures-using-ai)
+	- [Project Goals and Performance](#project-goals-and-performance)
 	- [Dataset](#dataset)
 - [Getting Started](#getting-started)
 	- [Installation](#1-installation)
@@ -16,6 +20,7 @@ part of the AI for Healthcare Nanodegree program.  It has been reviewed by Udaci
 
 # Introduction  
 
+## Background of Alzheimer's Disease  
 Alzheimer's Disease (AD) is a degenerative brain disease that affects an estimated 5.8 million Americans age 65 and older in 2020.
 It is thought that AD begins 20 years or more before symptoms arise, with progressive brain changes that are unnoticeable to the affected person.  As the disease progresses, nerve cells (neurons) in parts of the brain involved with thinking, learning, and memory functions are damaged and destroyed.  
 After years of brain changes, individuals experience symptoms such as memory loss, loss of language function, and other manifestations.  AD is the most common cause of dementia [1].
@@ -23,26 +28,31 @@ After years of brain changes, individuals experience symptoms such as memory los
 The Alzheimer's Association (AA) "2020 Alzheimer's Disease Facts and Figures" estimates that the number of Americans with AD may triple by 2050 [1].
 With such a staggering future care need, projections show that there will be a shortage of front-line primary care physicians (PCP), neurologists, and other specialists who provide critical expertise in dementia diagnosis and care [2].
 
-Currently, an MRI exam is one of the most advanced methods to quantify AD.  Studies have shown that measurements of hippocampal volume from MRI exams is useful to diagnose and track progression of several brain diseases, including AD.  AD patients have shown a reduced hippocampus volume.
+## Quantifying Disease Progression with MRI Exams 
+Currently, an MRI exam is one of the most advanced methods to quantify AD.  Studies have shown that measurements of hippocampal volume from MRI exams is useful to diagnose and track progression of several brain diseases, including AD.  AD patients have shown reduced hippocampus volume.  
+
 Quantifying disease progression over time can help direct therapy and disease management. However, the process to measure the hippocampus using MRI scans is very time consuming.  Each 3D MRI scan volume contains several dozen 2D images slices.  With each 2D image slice, the hippocampus must be correctly identified and traced.
 
+## Automate Identification of Brain Structures Using AI  
 AI software can provide a practical solution to quantify hippocampal volume from MRI scans.  Deep learning algorithms for computer vision segmentation tasks introduce new avenues to automate the identification of objects and trace objects in an image.   
-For this project, a deep learning segmentation model was created to identify hippocampus structures in brain MRI scans on volume pixel (voxel) level.  The identified hippocampus voxels are translated to physical volume measurements in mm^3.
 
-The intention of this software is to be integrated into a Picture Archiving and Communication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed to a clinical imaging archive server.
-This software will eliminate the tedious hippocampus measurement task from physicians' workflow and will quickly provide physicians with an accurate measurement.  The software will also provide a consistent method to trace the hippocampus structure, whereas there may be variability between clinicians in the tracement task.
+For this project, an image segmentation model was created to identify hippocampus structures in brain MRI scans at volume pixel (voxel) level.  The identified hippocampus voxels are translated to physical volume measurements in mm^3.
+
+The intention of this software is to be integrated into a Picture Archiving and Communication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed to a clinical imaging archive server.  
+The software will provide a consistent method to trace the hippocampus structure and quickly provide physicians with an accurate measurement.
+
+## Project Goals and Performance  
 The performance metrics requirements for this segmentation CNN are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80 when comparing model predictions to ground truth segmentation masks.  
 
  ![report.dcm](/Section%203%20Simulate%20DIMSE/out/Study1_DCM%20Report%20Screenshot.jpg)  
- **Figure 1.** Example report output for Test Volumes Study 1
+ **Figure 1.** Example report output for Test Volumes Study 1, containing snapshots of identified hippocampus at different depths 
 
 This project is broken into three sections and are located in separate folders:
-- Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Segmentation Decathlon dataset metadata, analyze & visualize image volumes & corresponding labels, and identify & remove data that is not of a brain MRI.  
-- Section 2 Training a segmentation CNN model: Image volume extraction from NIFTI files, image volume pre-processing, split dataset using Scikit-Learn, build & train a UNet Fully Convolutional Neural Network (FCN) with PyTorch, 
-and evaluate model performance metrics - overall Dice Similarity Coefficient & Jaccard Index.  
+- Section 1 Curating a Dataset of Brain MRIs: Analyze Medical Segmentation Decathlon dataset metadata, analyze and visualize image volumes with corresponding labels, and identify and clean data that is not a brain MRI.  
+- Section 2 Training a segmentation CNN model: Image volume extraction from NIFTI files, image volume pre-processing, split dataset using Scikit-Learn, build & train a UNet Fully Convolutional Neural Network (FCN) with PyTorch, and evaluate model performance metrics - overall Dice Similarity Coefficient & Jaccard Index.  
 - Section 3 Integrating into a Clinical Network:  Simulate DICOM Message Service Element (DIMSE). A dedicated AI computer will be added to a clinical PACS network.  The AI computer will contain a copy of the Section 2 segmentation CNN.  When a MRI scanner completes a scan and sends a MRI study to the PACS, the AI computer will receive a copy of the transferred file to execute inference and provide a DICOM report with hippocampus measurements.
 
-In this completed model run, the model achieved performance of **Overall Mean Dice Similarity Coefficient 0.906** and **Overall mean Jaccard Index 0.830**.  A full discussion of completed project results and model performance can be read in [Validation_Plan_Proposal](Validation_Plan_Proposal.pdf)  
+The current trained model achieved performance of **Overall Mean Dice Similarity Coefficient 0.906** and **Overall mean Jaccard Index 0.830**.  A full discussion of completed project results and model performance can be read in [Validation_Plan_Proposal](Validation_Plan_Proposal.pdf)  
 
 **References**  
 [1] Alzheimer’s Association. "2020 Alzheimer’s Disease Facts and Figures", Alzheimers & Dementia, 2020;16(3):391+. [LINK](https://www.alz.org/media/Documents/alzheimers-facts-and-figures_1.pdf)  
@@ -279,3 +289,5 @@ You will then want to enter the Desktop with the bottom right hand corner.
 # License
 
 This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md)
+
+[Back to Top](#table-of-contents)
