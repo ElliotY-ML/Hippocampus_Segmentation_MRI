@@ -31,15 +31,14 @@ With such a staggering future care need, projections show that there will be a s
 ## Quantifying Disease Progression with MRI Exams 
 Currently, an MRI exam is one of the most advanced methods to quantify AD.  Studies have shown that measurements of hippocampal volume from MRI exams is useful to diagnose and track progression of several brain diseases, including AD.  AD patients have shown reduced hippocampus volume.  
 
-Quantifying disease progression over time can help direct therapy and disease management. However, the process to measure the hippocampus using MRI scans is very time consuming.  Each 3D MRI scan volume contains several dozen 2D images slices.  With each 2D image slice, the hippocampus must be correctly identified and traced.
+Quantifying disease progression over time can help direct therapy and disease management. However, the process to measure the hippocampus from MRI scans is very time consuming.  Each MRI scan is a 3D image which consists of several dozen 2D images slices.  With each 2D image slice, the hippocampus must be correctly identified and traced.
 
 ## Automate Identification of Brain Structures Using AI  
 AI software can provide a practical solution to quantify hippocampal volume from MRI scans.  Deep learning algorithms for computer vision segmentation tasks introduce new avenues to automate the identification of objects and trace objects in an image.   
+  
+For this project, a semantic image segmentation model was created to identify hippocampus structures in brain MRI scans at volume pixel (voxel) level.  The identified hippocampus voxels are translated to physical volume measurements in units of mm^3.
 
-For this project, an image segmentation model was created to identify hippocampus structures in brain MRI scans at volume pixel (voxel) level.  The identified hippocampus voxels are translated to physical volume measurements in mm^3.
-
-The intention of this software is to be integrated into a Picture Archiving and Communication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed to a clinical imaging archive server.  
-The software will provide a consistent method to trace the hippocampus structure and quickly provide physicians with an accurate measurement.
+The software will provide a consistent method to trace the hippocampus structure and quickly provide physicians with an accurate measurement. The intention of this software is to be integrated into a Picture Archiving and Communication System (PACS) whereby this software will automatically calculate hippocampal volumes of new MRI studies as the studies are committed to a clinical imaging archive server. Individual reports containing calculated measurements and images of hippocampus at different depths are the output, and can be accessed by physicians.  
 
 ## Project Goals and Performance  
 The performance metrics requirements for this segmentation CNN are to achieve Dice Similarity Coefficient >0.90 and Jaccard Index >0.80 when comparing model predictions to ground truth segmentation masks.  
@@ -202,7 +201,7 @@ Instructions:
 
 ## Part 2: Train U-Net Fully Convolutional Network for Brain Segmentation
 
-In Section 2, PyTorch is used for training a model with the U-Net convolutional neural network architecture from the University of Freiburg [1] for segmentation of Brain MRIs and identify the right hippocampus.  
+In Section 2, PyTorch is used for training a semantic segmentation model with the U-Net Fully Convolutional Neural Network architecture from the University of Freiburg [1] for segmentation of Brain MRIs and identify the right hippocampus.  
 Cleaned data from Section 1 is the input into Section 2.   The directory `/Section 2 Train_Eval_Model/src` contains the source code that forms the machine learning pipeline.  
 
 Inputs:

@@ -27,4 +27,7 @@ Section 3 Simulate DIMSE/out/inference_dcm.py
 Section 3 Simulate DIMSE/out/report.dcm
 Section 3 Simulate DIMSE/@PaxHeader
 Section 3 Simulate DIMSE/src/test.py
+Section1_EDA
+Section2_Train_Eval_Model
+Section3_Simulate DIMSE
 
